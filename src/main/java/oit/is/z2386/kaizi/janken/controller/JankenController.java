@@ -1,5 +1,6 @@
 package oit.is.z2386.kaizi.janken.controller;
 
+ janken1-3
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,4 +29,7 @@ public class JankenController {
     return "janken.html";
   }
 
+public class JankenController {
+  
+  main
 }
