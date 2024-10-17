@@ -76,4 +76,10 @@ public class JankenController {
     model.addAttribute("entry", this.entry);
     return "janken.html";
   }
+
+  @GetMapping("/match")
+  public String match(@RequestParam Integer id, ModelMap model) {
+    model.addAttribute("id", id);
+    return "match.html";
+  }
 }
