@@ -5,17 +5,17 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.z2386.kaizi.janken.model.Entry;
 import oit.is.z2386.kaizi.janken.model.UserMapper;
 import oit.is.z2386.kaizi.janken.model.User;
+import oit.is.z2386.kaizi.janken.model.MatchMapper;
+import oit.is.z2386.kaizi.janken.model.Match;
 
 //@RequestMapping("")
 @Controller
@@ -26,6 +26,9 @@ public class JankenController {
   @Autowired
   UserMapper userMapper;
 
+  @Autowired
+  MatchMapper matchMapper;
+
   @PostMapping("/janken")
   public String janken(@RequestParam String n, ModelMap model) {
     String h = "Hi ";
@@ -33,8 +36,6 @@ public class JankenController {
     h += "!";
     n = h;
     model.addAttribute("n", n);
-    ArrayList<User> n5 = userMapper.selectAllByUsers(n);
-    model.addAttribute("n5", n5);
     return "janken.html";
   }
 
@@ -43,6 +44,10 @@ public class JankenController {
     String loginUser = prin.getName();
     this.entry.addUser(loginUser);
     model.addAttribute("entry", this.entry);
+    ArrayList<Match> matches = matchMapper.selectAllByMatches();
+    model.addAttribute("matches", matches);
+    ArrayList<User> users = userMapper.selectAllByUsers();
+    model.addAttribute("users", users);
 
     return "janken.html";
   }

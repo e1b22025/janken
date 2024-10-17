@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
-
-</html>
-<html>
-
 <head>
   <meta charset="utf-8">
   <title>Janken Game!</title>
@@ -13,33 +7,38 @@
   <a href="/logout">ログアウト</a>
   <h1>Janken Game!</h1>
   <p>
-    エントリー
-  <ul>
-    <li th:each="user : ${entry.users}">[[${user}]]</li>
-
-    <p th:if="${n5}">
-      <!--statはステータス変数
-          https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html
-        -->
-    <div th:each="user,stat:${n5}">
-      <tr>
-        <td>Index:[[${stat.index}]]</td>
-        <td>ID:[[${user.id}]]</td>
-        <td>ユーザ名:[[${user.name}]]</td>
-      </tr>
-
-  </ul>
-  </p>
-  <p>
-    <span th:text="${n}"></span></h1>
     Hi
     <nobr sec:authentication="name"></nobr>
   </p>
+
+  <h2>
+    <p>エントリー</p>
+  </h2>
+  <div th:each="users,stat:${users}">
+    <ul>
+      <li>[[${users.name}]]</li>
+    </ul>
+  </div>
   <a href="/jankengame?hand=Gu">ぐー</a> <a href="/jankengame?hand=Choki">ちょき</a> <a href="/jankengame?hand=Pa">ぱー</a>
   <br>
   [[${hand}]]<br>
   [[${chand}]]<br>
   [[${result}]]<br>
+
+  <p th:if="${matches}">
+    試合結果
+  <div th:each="matches,stat:${matches}">
+    <tr>
+      <td>
+        id:[[${matches.id}]]
+        user1:[[${matches.user1}]]
+        user2:[[${matches.user2}]]
+        user1の手:[[${matches.user1Hand}]]
+        user2の手:[[${matches.user2Hand}]]
+      </td>
+    </tr>
+  </div>
+  </p>
 </body>
 
 </html>
