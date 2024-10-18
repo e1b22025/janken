@@ -14,13 +14,11 @@
   <h2>
     <p>エントリー</p>
   </h2>
-  <li th:each="user : ${users}"><a th:href="@{/match(id=${user.id})}"> [[${user.name}]]</a></li>
-  <a href="/jankengame?hand=Gu">ぐー</a> <a href="/jankengame?hand=Choki">ちょき</a> <a href="/jankengame?hand=Pa">ぱー</a>
-  <br>
-  [[${hand}]]<br>
-  [[${chand}]]<br>
-  [[${result}]]<br>
-
+  <div>
+    <ul>
+      <li th:each="user : ${users}"><a th:href="@{/match(id=${user.id})}"> [[${user.name}]]</a></li>
+    </ul>
+  </div>
   <p th:if="${matches}">
     試合結果
   <div th:each="matches,stat:${matches}">

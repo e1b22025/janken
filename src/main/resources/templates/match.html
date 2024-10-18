@@ -4,6 +4,13 @@
   Match
 </h1>
 
-<h1>
-  ほんだV.S.CPU
-</h1>
+<h2>
+  <nobr sec:authentication="name"></nobr>V.S.CPU
+</h2>
+<a th:href="@{/fight(id=${id},hand=Gu)}">ぐー</a> <a th:href="@{/fight(id=${id},hand=Choki)}">ちょき</a> <a
+  th:href="@{/fight(id=${id},hand=Pa)}">ぱー</a>
+<br>
+[[${hand}]]<br>
+[[${chand}]]<br>
+[[${result}]]<br>
+<a href="/janken">もどる</a>
