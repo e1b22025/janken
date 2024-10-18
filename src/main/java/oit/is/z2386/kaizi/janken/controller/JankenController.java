@@ -29,6 +29,9 @@ public class JankenController {
   @Autowired
   MatchMapper matchMapper;
 
+  String loginUser;
+  int pid = 88;
+
   @PostMapping("/janken")
   public String janken(@RequestParam String n, ModelMap model) {
     String h = "Hi ";
@@ -41,7 +44,7 @@ public class JankenController {
 
   @GetMapping("/janken")
   public String janken1(Principal prin, ModelMap model) {
-    String loginUser = prin.getName();
+    this.loginUser = prin.getName();
     this.entry.addUser(loginUser);
     model.addAttribute("entry", this.entry);
     ArrayList<Match> matches = matchMapper.selectAllByMatches();
@@ -80,6 +83,42 @@ public class JankenController {
   @GetMapping("/match")
   public String match(@RequestParam Integer id, ModelMap model) {
     model.addAttribute("id", id);
+    pid = id;
+    return "match.html";
+  }
+
+  @GetMapping("/fight")
+  public String fight(@RequestParam String hand, @RequestParam Integer id, ModelMap model) {
+    String gu = "Gu";
+    String pa = "Pa";
+    String choki = "Choki";
+    String result = "a";
+
+    ArrayList<User> player = userMapper.selectNamebyUsers(this.loginUser);
+    int cpuid = id;
+    Match match = new Match();
+
+    if (gu.equals(hand)) {
+      result = "Draw";
+    }
+    if (pa.equals(hand)) {
+      result = "Win!";
+    }
+    if (choki.equals(hand)) {
+      result = "Lose";
+    }
+
+    match.setUser1(player.get(0).getId());
+    match.setUser2(cpuid);
+    match.setUser1Hand(hand);
+    match.setUser2Hand("Gu");
+    matchMapper.insertMatchesInfo(match);
+    model.addAttribute("hand", "あなたの手 " + hand);
+    model.addAttribute("chand", "相手の手 " + "Gu");
+    model.addAttribute("result", "結果 You " + result);
+    model.addAttribute("entry", this.entry);
+
+    model.addAttribute("id", pid);
     return "match.html";
   }
 }
