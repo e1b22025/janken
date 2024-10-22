@@ -6,6 +6,7 @@ public class Match {
     int user2;
     String user1Hand;
     String user2Hand;
+    boolean isActive;
 
 
     // Thymeleafでフィールドを扱うためにはgetter/setterが必ず必要
@@ -48,5 +49,14 @@ public class Match {
     public void setUser2(int user2) {
       this.user2 = user2;
     }
+
+    public boolean getIsActive() {
+      return isActive;
+    }
+    public void setIsActive(boolean isActive) {
+      this.isActive = isActive;
+    }
+
+
 
 }
