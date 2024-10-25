@@ -56,7 +56,8 @@ public class JankenController {
     model.addAttribute("matches", matches);
     ArrayList<User> users = userMapper.selectAllByUsers();
     model.addAttribute("users", users);
-
+    ArrayList<MatchInfo> matchinfos = matchinfoMapper.selectAllByMatchinfo();
+    model.addAttribute("matchinfos", matchinfos);
     return "janken.html";
   }
 
@@ -89,6 +90,17 @@ public class JankenController {
   public String match(@RequestParam Integer id, ModelMap model) {
     model.addAttribute("id", id);
     pid = id;
+    String ename = "a";
+    if (id == 1) {
+      ename = "CPU";
+    }
+    if (id == 2) {
+      ename = "ほんだ";
+    }
+    if (id == 3) {
+      ename = "いがき";
+    }
+    model.addAttribute("ename", ename);
     return "match.html";
   }
 
