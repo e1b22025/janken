@@ -16,6 +16,8 @@ import oit.is.z2386.kaizi.janken.model.UserMapper;
 import oit.is.z2386.kaizi.janken.model.User;
 import oit.is.z2386.kaizi.janken.model.MatchMapper;
 import oit.is.z2386.kaizi.janken.model.Match;
+import oit.is.z2386.kaizi.janken.model.MatchInfo;
+import oit.is.z2386.kaizi.janken.model.MatchInfoMapper;
 
 //@RequestMapping("")
 @Controller
@@ -28,6 +30,9 @@ public class JankenController {
 
   @Autowired
   MatchMapper matchMapper;
+
+  @Autowired
+  MatchInfoMapper matchinfoMapper;
 
   String loginUser;
   int pid = 88;
@@ -97,6 +102,7 @@ public class JankenController {
     ArrayList<User> player = userMapper.selectNamebyUsers(this.loginUser);
     int cpuid = id;
     Match match = new Match();
+    MatchInfo matchinfo = new MatchInfo();
 
     if (gu.equals(hand)) {
       result = "Draw";
@@ -113,12 +119,17 @@ public class JankenController {
     match.setUser1Hand(hand);
     match.setUser2Hand("Gu");
     matchMapper.insertMatchesInfo(match);
+    matchinfo.setUser1(player.get(0).getId());
+    matchinfo.setUser2(cpuid);
+    matchinfo.setUser1Hand(hand);
+    matchinfo.setIsActive(true);
+    matchinfoMapper.insertMatchInfo(matchinfo);
     model.addAttribute("hand", "あなたの手 " + hand);
     model.addAttribute("chand", "相手の手 " + "Gu");
     model.addAttribute("result", "結果 You " + result);
     model.addAttribute("entry", this.entry);
 
     model.addAttribute("id", pid);
-    return "match.html";
+    return "wait.html";
   }
 }
