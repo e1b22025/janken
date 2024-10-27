@@ -24,7 +24,6 @@
   </h2>
   <p th:if="${matchinfos}">
   <div th:each="matchinfos,stat:${matchinfos}">
-    <div th:if="${matchinfos.isActive}">
       id:[[${matchinfos.id}]]
       user1:[[${matchinfos.user1}]]
       user2:[[${matchinfos.user2}]]

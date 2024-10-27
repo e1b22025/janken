@@ -1,4 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
 <title>Janken GAME!</title>
+
+<head>
+  <meta charset="utf-8">
+  <title>しばらくお待ちください</title>
+  <script>
+    window.onload = function () {
+      var sse = new EventSource('/step9');
+      sse.onmessage = function (event) {
+        console.log("sse.onmessage")
+        console.log(event.data);
+        var match = JSON.parse(event.data);
+        var kekka = "<h2>結果</h2><br>";
+
+
+        var msg = "Match:"
+        var id = "id " + match.id + " ";
+        var user1 = "user1: " + match.user1 + " ";
+        var user2 = "user2: " + match.user2 + " ";
+        var user1Hand = "user1Hand: " + match.user1Hand + " ";
+        var user2Hand = "user2Hand: " + match.user2Hand;
+        kekka = kekka + msg + id + user1 + user1Hand + user2Hand + "<br>"
+
+
+        kekka = kekka + "<a href='/janken'>もどる</a>";
+        console.log(kekka);
+        var tbody = document.getElementById("kekka");
+        tbody.innerHTML = kekka;
+      }
+    }
+  </script>
+</head>
 <h1>
   相手を待っています
 </h1>
@@ -6,5 +40,4 @@
   Hi
   <nobr sec:authentication="name"></nobr>
 </p>
-
-
+<p id="kekka"></p>
