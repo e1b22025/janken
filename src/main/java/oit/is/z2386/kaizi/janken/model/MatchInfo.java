@@ -7,6 +7,13 @@ public class MatchInfo {
     String user1Hand;
     boolean isActive;
 
+    public MatchInfo( int user1, int user2, String user1Hand, boolean isActive) {
+      this.user1 = user1;
+      this.user2 = user2;
+      this.user1Hand = user1Hand;
+      this.isActive = isActive;
+    }
+
 
     // Thymeleafでフィールドを扱うためにはgetter/setterが必ず必要
     // vscodeのソースコード右クリック->ソースアクションでsetter/getterを簡単に追加できる
