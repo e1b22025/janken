@@ -31,7 +31,7 @@ public class AsyncKekka {
 
   /* userMapper処理 */
 
-  public ArrayList<User> syncShowUsersList() {
+  public ArrayList<User> syncShowUserList() {
     return this.userMapper.selectAllByUsers();
   }
 
@@ -42,7 +42,7 @@ public class AsyncKekka {
   }
   /* matchMapper処理 */
 
-  public ArrayList<Match> syncShowMatchesList() {
+  public ArrayList<Match> syncShowMatchList() {
     return this.matchMapper.selectAllByMatches();
   }
 

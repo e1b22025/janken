@@ -58,11 +58,11 @@ public class JankenController {
     this.loginUser = prin.getName();
     this.entry.addUser(loginUser);
     model.addAttribute("entry", this.entry);
-    ArrayList<Match> matches = asynckekk.syncShowMatchesList();
+    ArrayList<Match> matches = asynckekk.syncShowMatchList();
     model.addAttribute("matches", matches);
-    ArrayList<User> users = asynckekk.syncShowUsersList();
+    ArrayList<User> users = asynckekk.syncShowUserList();
     model.addAttribute("users", users);
-    ArrayList<MatchInfo> matchinfos = matchinfoMapper.selectAlltrueActivebyMatchInfo();
+    ArrayList<MatchInfo> matchinfos = matchinfoMapper.selecttrueActivebyMatchInfo();
     model.addAttribute("matchinfos", matchinfos);
     return "janken.html";
   }
@@ -123,12 +123,12 @@ public class JankenController {
     // Match match = new Match();
     // MatchInfo matchinfo = new MatchInfo();
 
-    int playerid = asynckekk.syncShowUserId(loginUser);// 自身のidを取得する
-    MatchInfo matchInfo = new MatchInfo(playerid, id, hand, true);// 自身の手の情報をinfoに格納する
+    int playerid = asynckekk.syncShowUserId(loginUser);
+    MatchInfo matchInfo = new MatchInfo(playerid, id, hand, true);
 
     if (matchinfoMapper.checkActive(playerid, id)) {
       int targetrecode = matchinfoMapper.selectIdActive(playerid, id);
-      String player2hand = matchinfoMapper.selectUser1Hand(targetrecode);// 相手が出した手を取得する 必ず１つ分のデータしかないためStringにしている。
+      String player2hand = matchinfoMapper.selectUser1Hand(targetrecode);
       Match match = new Match(playerid, id, hand, player2hand, true);
       asynckekk.syncInsertMatch(match);// 結果を格納する処理
       matchinfoMapper.updateActive(targetrecode);// FALSEに更新
@@ -162,7 +162,7 @@ public class JankenController {
       ename = "いがき";
     }
 
-    ArrayList<Match> matches = asynckekk.syncShowMatchesList();
+    ArrayList<Match> matches = asynckekk.syncShowMatchList();
     model.addAttribute("matches", matches);
     model.addAttribute("id", id);
     model.addAttribute("ename", ename);
@@ -170,7 +170,7 @@ public class JankenController {
     return "wait.html";
   }
 
-  @GetMapping("/step9")
+  @GetMapping("/UPdata")
   public SseEmitter sample59() {// htmlが読み込まれた時に呼び出される。
     final SseEmitter sseEmitter = new SseEmitter();
     this.asynckekk.asyncJankenKekka(sseEmitter);

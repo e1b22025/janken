@@ -8,11 +8,11 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface MatchInfoMapper {
-  @Select("SELECT * from matchinfo")
-  ArrayList<MatchInfo> selectAllByMatchinfo();
+  //@Select("SELECT * from matchinfo")
+  //ArrayList<MatchInfo> selectAllByMatchinfo();
 
   @Select("SELECT * FROM matchinfo WHERE isActive=TRUE;")
-  ArrayList<MatchInfo> selectAlltrueActivebyMatchInfo();
+  ArrayList<MatchInfo> selecttrueActivebyMatchInfo();
 
   @Insert("INSERT INTO matchinfo (user1,user2,user1Hand,isActive) VALUES (#{user1},#{user2},#{user1Hand},#{isActive});")
   void insertMatchInfo(MatchInfo matchinfo);
