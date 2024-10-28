@@ -8,7 +8,7 @@
   <title>しばらくお待ちください</title>
   <script>
     window.onload = function () {
-      var sse = new EventSource('/step9');
+      var sse = new EventSource('/UPdata');
       sse.onmessage = function (event) {
         console.log("sse.onmessage")
         console.log(event.data);
